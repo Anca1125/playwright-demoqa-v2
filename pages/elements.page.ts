@@ -11,7 +11,9 @@ export class ElementsPage extends BasePage {
   constructor(page: Page) {
     super(page);
 
-    this.textBox = page.getByText("Text Box", { exact: true });
+    this.textBox = this.textBox = page
+      .locator(".element-list")
+      .getByText("Text Box");
     this.fullNameInput = page.locator("#userName");
     this.emailInput = page.locator("#userEmail");
     this.currentAddressInput = page.locator("#currentAddress");
@@ -20,6 +22,7 @@ export class ElementsPage extends BasePage {
   }
 
   async openTextBox() {
+    await this.textBox.scrollIntoViewIfNeeded();
     await this.textBox.click({ force: true });
   }
   async fillFullName(value: string) {

@@ -14,7 +14,7 @@ test.describe("text Box form tests", () => {
     await homePage.clickElements();
     await elementsPage.openTextBox();
 
-    await expect(page).toHaveURL("https://demoqa.com/text-box");
+    await expect(page).toHaveURL(/text-box/);
   });
 
   test("user can submit Text Box form", async ({ page }) => {
