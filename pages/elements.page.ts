@@ -30,6 +30,13 @@ export class ElementsPage extends BasePage {
   readonly salaryInput: Locator;
   readonly departmentInput: Locator;
   readonly submitForm: Locator;
+  readonly buttons: Locator;
+  readonly doubleClickButton: Locator;
+  readonly rightClickButton: Locator;
+  readonly clickButton: Locator;
+  readonly doubleClickMessage: Locator;
+  readonly rightClickMessage: Locator;
+  readonly dynamicClickMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -62,6 +69,16 @@ export class ElementsPage extends BasePage {
     this.salaryInput = page.locator("#salary");
     this.departmentInput = page.locator("#department");
     this.submitForm = page.locator("#submit");
+    this.buttons = page.getByText("Buttons", { exact: true });
+    this.doubleClickButton = page.locator("#doubleClickBtn");
+    this.rightClickButton = page.locator("#rightClickBtn");
+    this.clickButton = page.getByRole("button", {
+      name: "Click Me",
+      exact: true,
+    });
+    this.doubleClickMessage = page.locator("#doubleClickMessage");
+    this.rightClickMessage = page.locator("#rightClickMessage");
+    this.dynamicClickMessage = page.locator("#dynamicClickMessage");
   }
 
   async openTextBox() {
@@ -146,5 +163,17 @@ export class ElementsPage extends BasePage {
     });
 
     await row.locator('[title="Delete"]').click();
+  }
+  async openButtonsSection() {
+    await this.buttons.click();
+  }
+  async performDoubleClick() {
+    await this.doubleClickButton.dblclick();
+  }
+  async performRightClick() {
+    await this.rightClickButton.click({ button: "right" });
+  }
+  async performDynamicClick() {
+    await this.clickButton.click();
   }
 }

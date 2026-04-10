@@ -222,4 +222,35 @@ test.describe("text Box form tests", () => {
 
     await expect(page.getByText(updateUser.email)).toHaveCount(0);
   });
+
+  test("elements module - user can perform a double click", async ({
+    page,
+  }) => {
+    await elementsPage.openButtonsSection();
+    await elementsPage.performDoubleClick();
+
+    await expect(elementsPage.doubleClickMessage).toHaveText(
+      "You have done a double click",
+    );
+  });
+
+  test("elements module - user can perform a right click", async ({ page }) => {
+    await elementsPage.openButtonsSection();
+    await elementsPage.performRightClick();
+
+    await expect(elementsPage.rightClickMessage).toHaveText(
+      "You have done a right click",
+    );
+  });
+
+  test("elements module - user can perform a dynamic click", async ({
+    page,
+  }) => {
+    await elementsPage.openButtonsSection();
+    await elementsPage.performDynamicClick();
+
+    await expect(elementsPage.dynamicClickMessage).toHaveText(
+      "You have done a dynamic click",
+    );
+  });
 });
