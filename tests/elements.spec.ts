@@ -223,10 +223,13 @@ test.describe("text Box form tests", () => {
     await expect(page.getByText(updateUser.email)).toHaveCount(0);
   });
 
-  test("elements module - user can perform a double click", async ({
+  test("elements module - buttons - user can perform a double click", async ({
     page,
   }) => {
     await elementsPage.openButtonsSection();
+
+    await expect(page).toHaveURL(/buttons/);
+
     await elementsPage.performDoubleClick();
 
     await expect(elementsPage.doubleClickMessage).toHaveText(
@@ -234,7 +237,9 @@ test.describe("text Box form tests", () => {
     );
   });
 
-  test("elements module - user can perform a right click", async ({ page }) => {
+  test("elements module - buttons - user can perform a right click", async ({
+    page,
+  }) => {
     await elementsPage.openButtonsSection();
     await elementsPage.performRightClick();
 
@@ -243,7 +248,7 @@ test.describe("text Box form tests", () => {
     );
   });
 
-  test("elements module - user can perform a dynamic click", async ({
+  test("elements module - buttons -  user can perform a dynamic click", async ({
     page,
   }) => {
     await elementsPage.openButtonsSection();
@@ -252,5 +257,30 @@ test.describe("text Box form tests", () => {
     await expect(elementsPage.dynamicClickMessage).toHaveText(
       "You have done a dynamic click",
     );
+  });
+
+  test("elements module - links - user can open Home link ", async ({
+    page,
+    context,
+  }) => {
+    await elementsPage.openLinksSection();
+
+    const [newPage] = await Promise.all([
+      context.waitForEvent("page"),
+      elementsPage.clickHomeLink(),
+    ]);
+
+    await expect(newPage).toHaveURL("https://demoqa.com/");
+
+    await newPage.close();
+  });
+
+  test("elements module - links - user can see Created response", async ({
+    page,
+  }) => {
+    await elementsPage.openLinksSection();
+    await elementsPage.clickCreatedLink();
+
+    await expect(elementsPage.responseAPIMessage).toContainText("201");
   });
 });

@@ -37,6 +37,10 @@ export class ElementsPage extends BasePage {
   readonly doubleClickMessage: Locator;
   readonly rightClickMessage: Locator;
   readonly dynamicClickMessage: Locator;
+  readonly links: Locator;
+  readonly openNewTabLink: Locator;
+  readonly sendAnAPICallLink: Locator;
+  readonly responseAPIMessage: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -79,6 +83,10 @@ export class ElementsPage extends BasePage {
     this.doubleClickMessage = page.locator("#doubleClickMessage");
     this.rightClickMessage = page.locator("#rightClickMessage");
     this.dynamicClickMessage = page.locator("#dynamicClickMessage");
+    this.links = page.getByText("Links", { exact: true });
+    this.openNewTabLink = page.locator("#simpleLink");
+    this.sendAnAPICallLink = page.locator("#created");
+    this.responseAPIMessage = page.locator("#linkResponse");
   }
 
   async openTextBox() {
@@ -165,6 +173,7 @@ export class ElementsPage extends BasePage {
     await row.locator('[title="Delete"]').click();
   }
   async openButtonsSection() {
+    await this.buttons.scrollIntoViewIfNeeded();
     await this.buttons.click();
   }
   async performDoubleClick() {
@@ -175,5 +184,14 @@ export class ElementsPage extends BasePage {
   }
   async performDynamicClick() {
     await this.clickButton.click();
+  }
+  async openLinksSection() {
+    await this.links.click();
+  }
+  async clickHomeLink() {
+    await this.openNewTabLink.click();
+  }
+  async clickCreatedLink() {
+    await this.sendAnAPICallLink.click();
   }
 }
