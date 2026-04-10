@@ -283,4 +283,50 @@ test.describe("text Box form tests", () => {
 
     await expect(elementsPage.responseAPIMessage).toContainText("201");
   });
+
+  test("elements module - broken links-images - valid image is loaded", async ({
+    page,
+  }) => {
+    await elementsPage.openBrokenLinksImages();
+
+    await expect(elementsPage.validImage).toBeVisible();
+  });
+
+  test("elements module - broken links-images - broken image is not loaded", async ({
+    page,
+  }) => {
+    await elementsPage.openBrokenLinksImages();
+
+    const naturalWidth = await elementsPage.brokenImage.evaluate(
+      (img: HTMLImageElement) => img.naturalWidth,
+    );
+
+    expect(naturalWidth).toBe(0);
+  });
+
+  test("elements module - broken links-images - valid link returns 200", async ({
+    page,
+    request,
+  }) => {
+    await elementsPage.openBrokenLinksImages();
+
+    const url = await elementsPage.validLink.getAttribute("href");
+
+    const response = await request.get(url!);
+
+    expect(response.status()).toBe(200);
+  });
+
+  test("elements module - broken links-images - broken link return 500", async ({
+    page,
+    request,
+  }) => {
+    await elementsPage.openBrokenLinksImages();
+
+    const url = await elementsPage.brokenLink.getAttribute("href");
+
+    const response = await request.get(url!);
+
+    expect(response.status()).toBe(500);
+  });
 });

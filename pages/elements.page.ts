@@ -41,6 +41,11 @@ export class ElementsPage extends BasePage {
   readonly openNewTabLink: Locator;
   readonly sendAnAPICallLink: Locator;
   readonly responseAPIMessage: Locator;
+  readonly brokenLinksImages: Locator;
+  readonly validImage: Locator;
+  readonly brokenImage: Locator;
+  readonly validLink: Locator;
+  readonly brokenLink: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -87,6 +92,15 @@ export class ElementsPage extends BasePage {
     this.openNewTabLink = page.locator("#simpleLink");
     this.sendAnAPICallLink = page.locator("#created");
     this.responseAPIMessage = page.locator("#linkResponse");
+    this.brokenLinksImages = page.getByText("Broken Links - Images", {
+      exact: true,
+    });
+    this.validImage = page.locator('img[src="/images/Toolsqa.jpg"]');
+    this.brokenImage = page.locator('img[src="/images/Toolsqa_1.jpg"]');
+    this.validLink = page.getByRole("link", {
+      name: "Click Here for Valid Link",
+    });
+    this.brokenLink = page.getByText("Click Here for Broken Link");
   }
 
   async openTextBox() {
@@ -193,5 +207,8 @@ export class ElementsPage extends BasePage {
   }
   async clickCreatedLink() {
     await this.sendAnAPICallLink.click();
+  }
+  async openBrokenLinksImages() {
+    await this.brokenLinksImages.click();
   }
 }
