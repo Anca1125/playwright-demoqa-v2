@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { HomePage } from "../pages/home.page";
 import { ElementsPage } from "../pages/elements.page";
+import { newUser, updateUser } from "../test-data/webTables.data";
 
 test.describe("text Box form tests", () => {
   let homePage: HomePage;
@@ -64,7 +65,6 @@ test.describe("text Box form tests", () => {
     await elementsPage.selectHome();
 
     await expect(elementsPage.result).toBeVisible();
-
     await expect(elementsPage.result).toContainText("home");
   });
 
@@ -85,7 +85,6 @@ test.describe("text Box form tests", () => {
     await elementsPage.selectHome();
 
     await expect(elementsPage.result).toBeVisible();
-
     await expect(elementsPage.result).toContainText("home");
 
     await elementsPage.selectHome();
@@ -123,5 +122,104 @@ test.describe("text Box form tests", () => {
     await elementsPage.openRadioButton();
 
     await expect(elementsPage.noRadioButton).toBeDisabled();
+  });
+  test("elements module - web tables - user can add record to the web table", async ({
+    page,
+  }) => {
+    await elementsPage.openWebTables();
+
+    await expect(page).toHaveURL("https://demoqa.com/webtables");
+
+    await elementsPage.addNewRecord();
+    await elementsPage.addDataForNewRecord(newUser);
+
+    await elementsPage.clickSubmitForm();
+
+    await expect(page.getByText("misu@iliuta.com")).toBeVisible();
+  });
+  test("elements module - search - user can search records", async ({
+    page,
+  }) => {
+    await elementsPage.openWebTables();
+
+    await expect(page).toHaveURL("https://demoqa.com/webtables");
+
+    await elementsPage.searchRecord("cierra@example.com");
+
+    await expect(page.getByText("cierra@example.com")).toBeVisible();
+  });
+
+  test("elements module - edit - user is able to edit records", async ({
+    page,
+  }) => {
+    await elementsPage.openWebTables();
+
+    await expect(page).toHaveURL("https://demoqa.com/webtables");
+
+    await elementsPage.editRecord();
+    await elementsPage.addDataForNewRecord(updateUser);
+
+    await elementsPage.clickSubmitForm();
+
+    await expect(page.getByText("misu1@iliuta1.com")).toBeVisible();
+    await expect(page.getByText("cierra@example.com")).not.toBeVisible();
+  });
+
+  test("elements module - web tables - user is able to delete a record", async ({
+    page,
+  }) => {
+    await elementsPage.openWebTables();
+
+    await expect(page).toHaveURL("https://demoqa.com/webtables");
+
+    await elementsPage.deleteRecord();
+
+    await expect(page.getByText("cierra@example.com")).not.toBeVisible();
+  });
+
+  test("elements module - web tables - user is able to delete a specific record", async ({
+    page,
+  }) => {
+    await elementsPage.openWebTables();
+
+    await expect(page).toHaveURL("https://demoqa.com/webtables");
+
+    await elementsPage.addNewRecord();
+    await elementsPage.addDataForNewRecord(newUser);
+    await elementsPage.clickSubmitForm();
+
+    await expect(page.getByText(newUser.email)).toBeVisible();
+
+    await elementsPage.searchRecord(newUser.email);
+    await elementsPage.deleteRecord();
+
+    await expect(page.getByText(newUser.email)).not.toBeVisible();
+  });
+
+  test("elements module - web tables - CRUD flow - user can create, update and delete record", async ({
+    page,
+  }) => {
+    await elementsPage.openWebTables();
+
+    await expect(page).toHaveURL("https://demoqa.com/webtables");
+
+    await elementsPage.addNewRecord();
+    await elementsPage.addDataForNewRecord(newUser);
+    await elementsPage.clickSubmitForm();
+    await elementsPage.searchRecord(newUser.email);
+
+    await expect(page.getByText(newUser.email)).toBeVisible();
+
+    await elementsPage.editRecord();
+    await elementsPage.addDataForNewRecord(updateUser);
+    await elementsPage.clickSubmitForm();
+    await elementsPage.searchRecord(updateUser.email);
+
+    await expect(page.getByText(updateUser.email)).toBeVisible();
+    await expect(page.getByText(newUser.email)).not.toBeVisible();
+
+    await elementsPage.deleteRecord();
+
+    await expect(page.getByText(updateUser.email)).toHaveCount(0);
   });
 });

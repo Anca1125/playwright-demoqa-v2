@@ -18,6 +18,19 @@ export class ElementsPage extends BasePage {
   readonly impressiveRadioButton: Locator;
   readonly noRadioButton: Locator;
   readonly resultRadioButton: Locator;
+  readonly webTables: Locator;
+  readonly addItems: Locator;
+  readonly searchInput: Locator;
+  readonly editItem: Locator;
+  readonly deleteItem: Locator;
+  readonly firstNameInput: Locator;
+  readonly lastNameInput: Locator;
+  readonly emailInputForm: Locator;
+  readonly ageInput: Locator;
+  readonly salaryInput: Locator;
+  readonly departmentInput: Locator;
+  readonly submitForm: Locator;
+
   constructor(page: Page) {
     super(page);
 
@@ -37,6 +50,18 @@ export class ElementsPage extends BasePage {
     this.impressiveRadioButton = page.locator("#impressiveRadio");
     this.noRadioButton = page.locator("#noRadio");
     this.resultRadioButton = page.locator(".text-success");
+    this.webTables = page.getByText("Web Tables", { exact: true });
+    this.addItems = page.locator("#addNewRecordButton");
+    this.searchInput = page.locator("#searchBox");
+    this.editItem = page.locator('[title="Edit"]');
+    this.deleteItem = page.locator('[title="Delete"]');
+    this.firstNameInput = page.locator("#firstName");
+    this.lastNameInput = page.locator("#lastName");
+    this.emailInputForm = page.locator("#userEmail");
+    this.ageInput = page.locator("#age");
+    this.salaryInput = page.locator("#salary");
+    this.departmentInput = page.locator("#department");
+    this.submitForm = page.locator("#submit");
   }
 
   async openTextBox() {
@@ -80,5 +105,46 @@ export class ElementsPage extends BasePage {
   }
   async checkNoRadioButton() {
     await this.noRadioButton.click();
+  }
+  async openWebTables() {
+    await this.webTables.click();
+  }
+  async addNewRecord() {
+    await this.addItems.click();
+  }
+  async addDataForNewRecord(user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    age: string;
+    salary: string;
+    departament: string;
+  }) {
+    await this.firstNameInput.fill(user.firstName);
+    await this.lastNameInput.fill(user.lastName);
+    await this.emailInputForm.fill(user.email);
+    await this.ageInput.fill(user.age);
+    await this.salaryInput.fill(user.salary);
+    await this.departmentInput.fill(user.departament);
+  }
+  async clickSubmitForm() {
+    await this.submitForm.click();
+  }
+  async searchRecord(value: string) {
+    await this.searchInput.fill(value);
+  }
+  async editRecord() {
+    await this.editItem.first().click();
+  }
+
+  async deleteRecord() {
+    await this.deleteItem.first().click();
+  }
+  async deleteRecordByEmail(email: string) {
+    const row = this.page.locator(".rt-tr-group", {
+      hasText: email,
+    });
+
+    await row.locator('[title="Delete"]').click();
   }
 }
