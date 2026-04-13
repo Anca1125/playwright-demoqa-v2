@@ -329,4 +329,57 @@ test.describe("text Box form tests", () => {
 
     expect(response.status()).toBe(500);
   });
+
+  test("elements module - upload and download - user can download a file", async ({
+    page,
+  }) => {
+    await elementsPage.openUploadAndDownload();
+
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      elementsPage.downloadAfile(),
+    ]);
+
+    const fileName = download.suggestedFilename();
+
+    expect(fileName).toBeTruthy();
+  });
+
+  test("elements module - upload and download - user can upload a file", async ({
+    page,
+  }) => {
+    await elementsPage.openUploadAndDownload();
+
+    const filePath = "test-data/testFile.txt";
+
+    await elementsPage.uploadAfile(filePath);
+
+    await expect(elementsPage.uploadedFilePath).toContainText("testFile.txt");
+  });
+
+  test("elements page - dynamic properties - Button enabled after 5 seconds", async ({
+    page,
+  }) => {
+    await elementsPage.openDynamicProperties();
+
+    await expect(elementsPage.enableButton).toBeDisabled();
+    await expect(elementsPage.enableButton).toBeEnabled({ timeout: 6000 });
+  });
+
+  test("elements page - dynamic properties - button changes the color", async ({
+    page,
+  }) => {
+    await elementsPage.openDynamicProperties();
+
+    await expect(elementsPage.colorButton).toHaveClass(/text-danger/, {
+      timeout: 6000,
+    });
+  });
+  test("elements page - dynamic properties - visible after 5 seconds ", async ({
+    page,
+  }) => {
+    await elementsPage.openDynamicProperties();
+
+    await expect(elementsPage.visibleButton).toBeVisible({ timeout: 6000 });
+  });
 });

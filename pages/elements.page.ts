@@ -46,6 +46,14 @@ export class ElementsPage extends BasePage {
   readonly brokenImage: Locator;
   readonly validLink: Locator;
   readonly brokenLink: Locator;
+  readonly uploadAndDownload: Locator;
+  readonly downloadButton: Locator;
+  readonly uploadButton: Locator;
+  readonly uploadedFilePath: Locator;
+  readonly dynamicProperties: Locator;
+  readonly enableButton: Locator;
+  readonly colorButton: Locator;
+  readonly visibleButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -101,6 +109,14 @@ export class ElementsPage extends BasePage {
       name: "Click Here for Valid Link",
     });
     this.brokenLink = page.getByText("Click Here for Broken Link");
+    this.uploadAndDownload = page.getByText("Upload and Download");
+    this.downloadButton = page.locator("#downloadButton");
+    this.uploadButton = page.locator("#uploadFile");
+    this.uploadedFilePath = page.locator("#uploadedFilePath");
+    this.dynamicProperties = page.getByText("Dynamic Properties");
+    this.enableButton = page.locator("#enableAfter");
+    this.colorButton = page.locator("#colorChange");
+    this.visibleButton = page.locator("#visibleAfter");
   }
 
   async openTextBox() {
@@ -210,5 +226,24 @@ export class ElementsPage extends BasePage {
   }
   async openBrokenLinksImages() {
     await this.brokenLinksImages.click();
+  }
+  async openUploadAndDownload() {
+    await this.uploadAndDownload.click();
+  }
+  async downloadAfile() {
+    await this.downloadButton.click();
+  }
+  async uploadAfile(filePath: string) {
+    await this.uploadButton.setInputFiles(filePath);
+  }
+  async openDynamicProperties() {
+    await this.dynamicProperties.click();
+  }
+
+  async clickOnColorButton() {
+    await this.colorButton.click();
+  }
+  async clickOnVisibleButton() {
+    await this.visibleButton.click();
   }
 }
