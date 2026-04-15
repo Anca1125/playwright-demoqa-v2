@@ -8,17 +8,115 @@ export class ElementsPage extends BasePage {
   readonly currentAddressInput: Locator;
   readonly permanentAddressInput: Locator;
   readonly submitButton: Locator;
+  readonly checkBox: Locator;
+  readonly checkBoxMenu: Locator;
+  readonly homeCheckBox: Locator;
+  readonly result: Locator;
+  readonly desktopCheckbox: Locator;
+  readonly radioButton: Locator;
+  readonly yesRadioButton: Locator;
+  readonly impressiveRadioButton: Locator;
+  readonly noRadioButton: Locator;
+  readonly resultRadioButton: Locator;
+  readonly webTables: Locator;
+  readonly addItems: Locator;
+  readonly searchInput: Locator;
+  readonly editItem: Locator;
+  readonly deleteItem: Locator;
+  readonly firstNameInput: Locator;
+  readonly lastNameInput: Locator;
+  readonly emailInputForm: Locator;
+  readonly ageInput: Locator;
+  readonly salaryInput: Locator;
+  readonly departmentInput: Locator;
+  readonly submitForm: Locator;
+  readonly buttons: Locator;
+  readonly doubleClickButton: Locator;
+  readonly rightClickButton: Locator;
+  readonly clickButton: Locator;
+  readonly doubleClickMessage: Locator;
+  readonly rightClickMessage: Locator;
+  readonly dynamicClickMessage: Locator;
+  readonly links: Locator;
+  readonly openNewTabLink: Locator;
+  readonly sendAnAPICallLink: Locator;
+  readonly responseAPIMessage: Locator;
+  readonly brokenLinksImages: Locator;
+  readonly validImage: Locator;
+  readonly brokenImage: Locator;
+  readonly validLink: Locator;
+  readonly brokenLink: Locator;
+  readonly uploadAndDownload: Locator;
+  readonly downloadButton: Locator;
+  readonly uploadButton: Locator;
+  readonly uploadedFilePath: Locator;
+  readonly dynamicProperties: Locator;
+  readonly enableButton: Locator;
+  readonly colorButton: Locator;
+  readonly visibleButton: Locator;
+
   constructor(page: Page) {
     super(page);
 
-    this.textBox = this.textBox = page
-      .locator(".element-list")
-      .getByText("Text Box");
+    this.textBox = page.locator(".element-list").getByText("Text Box");
     this.fullNameInput = page.locator("#userName");
     this.emailInput = page.locator("#userEmail");
     this.currentAddressInput = page.locator("#currentAddress");
     this.permanentAddressInput = page.locator("#permanentAddress");
     this.submitButton = page.locator("#submit");
+    this.checkBox = page.locator(".element-list").getByText("Check Box");
+    this.checkBoxMenu = page.getByText("Check Box");
+    this.homeCheckBox = page.getByLabel("Home");
+    this.result = page.locator("#result");
+    this.desktopCheckbox = page.getByText("Desktop");
+    this.radioButton = page.getByText("Radio Button", { exact: true });
+    this.yesRadioButton = page.locator("#yesRadio");
+    this.impressiveRadioButton = page.locator("#impressiveRadio");
+    this.noRadioButton = page.locator("#noRadio");
+    this.resultRadioButton = page.locator(".text-success");
+    this.webTables = page.getByText("Web Tables", { exact: true });
+    this.addItems = page.locator("#addNewRecordButton");
+    this.searchInput = page.locator("#searchBox");
+    this.editItem = page.locator('[title="Edit"]');
+    this.deleteItem = page.locator('[title="Delete"]');
+    this.firstNameInput = page.locator("#firstName");
+    this.lastNameInput = page.locator("#lastName");
+    this.emailInputForm = page.locator("#userEmail");
+    this.ageInput = page.locator("#age");
+    this.salaryInput = page.locator("#salary");
+    this.departmentInput = page.locator("#department");
+    this.submitForm = page.locator("#submit");
+    this.buttons = page.getByText("Buttons", { exact: true });
+    this.doubleClickButton = page.locator("#doubleClickBtn");
+    this.rightClickButton = page.locator("#rightClickBtn");
+    this.clickButton = page.getByRole("button", {
+      name: "Click Me",
+      exact: true,
+    });
+    this.doubleClickMessage = page.locator("#doubleClickMessage");
+    this.rightClickMessage = page.locator("#rightClickMessage");
+    this.dynamicClickMessage = page.locator("#dynamicClickMessage");
+    this.links = page.getByText("Links", { exact: true });
+    this.openNewTabLink = page.locator("#simpleLink");
+    this.sendAnAPICallLink = page.locator("#created");
+    this.responseAPIMessage = page.locator("#linkResponse");
+    this.brokenLinksImages = page.getByText("Broken Links - Images", {
+      exact: true,
+    });
+    this.validImage = page.locator('img[src="/images/Toolsqa.jpg"]');
+    this.brokenImage = page.locator('img[src="/images/Toolsqa_1.jpg"]');
+    this.validLink = page.getByRole("link", {
+      name: "Click Here for Valid Link",
+    });
+    this.brokenLink = page.getByText("Click Here for Broken Link");
+    this.uploadAndDownload = page.getByText("Upload and Download");
+    this.downloadButton = page.locator("#downloadButton");
+    this.uploadButton = page.locator("#uploadFile");
+    this.uploadedFilePath = page.locator("#uploadedFilePath");
+    this.dynamicProperties = page.getByText("Dynamic Properties");
+    this.enableButton = page.locator("#enableAfter");
+    this.colorButton = page.locator("#colorChange");
+    this.visibleButton = page.locator("#visibleAfter");
   }
 
   async openTextBox() {
@@ -40,5 +138,112 @@ export class ElementsPage extends BasePage {
   async clickSubmitButton() {
     await this.submitButton.scrollIntoViewIfNeeded();
     await this.submitButton.click();
+  }
+  async openCheckBox() {
+    await this.checkBoxMenu.click();
+  }
+  async selectHome() {
+    await this.homeCheckBox.click();
+  }
+
+  async selectDesktop() {
+    await this.desktopCheckbox.click();
+  }
+  async openRadioButton() {
+    await this.radioButton.click();
+  }
+  async checkYesRadioButton() {
+    await this.yesRadioButton.click();
+  }
+  async checkImpressiveRadioButton() {
+    await this.impressiveRadioButton.click();
+  }
+  async checkNoRadioButton() {
+    await this.noRadioButton.click();
+  }
+  async openWebTables() {
+    await this.webTables.click();
+  }
+  async addNewRecord() {
+    await this.addItems.click();
+  }
+  async addDataForNewRecord(user: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    age: string;
+    salary: string;
+    departament: string;
+  }) {
+    await this.firstNameInput.fill(user.firstName);
+    await this.lastNameInput.fill(user.lastName);
+    await this.emailInputForm.fill(user.email);
+    await this.ageInput.fill(user.age);
+    await this.salaryInput.fill(user.salary);
+    await this.departmentInput.fill(user.departament);
+  }
+  async clickSubmitForm() {
+    await this.submitForm.click();
+  }
+  async searchRecord(value: string) {
+    await this.searchInput.fill(value);
+  }
+  async editRecord() {
+    await this.editItem.first().click();
+  }
+
+  async deleteRecord() {
+    await this.deleteItem.first().click();
+  }
+  async deleteRecordByEmail(email: string) {
+    const row = this.page.locator(".rt-tr-group", {
+      hasText: email,
+    });
+
+    await row.locator('[title="Delete"]').click();
+  }
+  async openButtonsSection() {
+    await this.buttons.scrollIntoViewIfNeeded();
+    await this.buttons.click();
+  }
+  async performDoubleClick() {
+    await this.doubleClickButton.dblclick();
+  }
+  async performRightClick() {
+    await this.rightClickButton.click({ button: "right" });
+  }
+  async performDynamicClick() {
+    await this.clickButton.click();
+  }
+  async openLinksSection() {
+    await this.links.click();
+  }
+  async clickHomeLink() {
+    await this.openNewTabLink.click();
+  }
+  async clickCreatedLink() {
+    await this.sendAnAPICallLink.click();
+  }
+  async openBrokenLinksImages() {
+    await this.brokenLinksImages.click();
+  }
+  async openUploadAndDownload() {
+    await this.uploadAndDownload.click();
+  }
+  async downloadAfile() {
+    await this.downloadButton.click();
+  }
+  async uploadAfile(filePath: string) {
+    await this.uploadButton.setInputFiles(filePath);
+  }
+  async openDynamicProperties() {
+    await this.dynamicProperties.click();
+  }
+
+  async clickOnColorButton() {
+    await this.colorButton.click();
+  }
+  async clickOnVisibleButton() {
+    await this.visibleButton.click();
   }
 }
