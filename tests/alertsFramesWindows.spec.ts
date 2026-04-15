@@ -114,4 +114,40 @@ test.describe("alerts, frames & windows", () => {
       "You entered Anca",
     );
   });
+
+  test("alerts module - frames - user can see text in frame1", async ({
+    page,
+  }) => {
+    await alertsPage.openFrames();
+
+    await expect(alertsPage.frame1.locator("#sampleHeading")).toHaveText(
+      "This is a sample page",
+    );
+  });
+
+  test("alerts module - frames - user can see text in frame2", async ({
+    page,
+  }) => {
+    await alertsPage.openFrames();
+
+    await expect(alertsPage.frame2.locator("#sampleHeading")).toHaveText(
+      "This is a sample page",
+    );
+  });
+
+  test("alerts module - nested frames - parent frame", async ({ page }) => {
+    await alertsPage.openNestedFrame();
+
+    await expect(alertsPage.parentFrame.locator("body")).toHaveText(
+      "Parent frame",
+    );
+  });
+
+  test("alerts module - nested frames - child frame", async ({ page }) => {
+    await alertsPage.openNestedFrame();
+
+    await expect(alertsPage.childFrame.locator("body")).toContainText(
+      "Child Iframe",
+    );
+  });
 });

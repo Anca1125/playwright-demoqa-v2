@@ -1,4 +1,4 @@
-import { Locator, Page } from "@playwright/test";
+import { Locator, Page, FrameLocator } from "@playwright/test";
 import { BasePage } from "./base.page";
 
 export class AlertsFramesWindows extends BasePage {
@@ -11,6 +11,13 @@ export class AlertsFramesWindows extends BasePage {
   readonly timerAlertButton: Locator;
   readonly confirmButton: Locator;
   readonly promptButton: Locator;
+  readonly frames: Locator;
+  readonly frame1: FrameLocator;
+  readonly frame2: FrameLocator;
+  readonly frameText: Locator;
+  readonly nestedFrames: Locator;
+  readonly parentFrame: FrameLocator;
+  readonly childFrame: FrameLocator;
   constructor(page: Page) {
     super(page);
     this.browserWindow = page.getByText("Browser Windows");
@@ -22,6 +29,13 @@ export class AlertsFramesWindows extends BasePage {
     this.timerAlertButton = page.locator("#timerAlertButton");
     this.confirmButton = page.locator("#confirmButton");
     this.promptButton = page.locator("#promtButton");
+    this.frames = page.getByText("Frames", { exact: true });
+    this.frame1 = page.frameLocator("#frame1");
+    this.frame2 = page.frameLocator("#frame2");
+    this.frameText = page.locator("#sampleHeading");
+    this.nestedFrames = page.getByText("Nested Frames", { exact: true });
+    this.parentFrame = page.frameLocator("#frame1");
+    this.childFrame = this.parentFrame.frameLocator("iframe");
   }
   async openBrowserWindow() {
     await this.browserWindow.click();
@@ -49,5 +63,11 @@ export class AlertsFramesWindows extends BasePage {
   }
   async clickPromptButton() {
     await this.promptButton.click();
+  }
+  async openFrames() {
+    await this.frames.click();
+  }
+  async openNestedFrame() {
+    await this.nestedFrames.click();
   }
 }
