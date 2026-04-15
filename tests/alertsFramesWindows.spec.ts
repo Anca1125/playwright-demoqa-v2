@@ -150,4 +150,30 @@ test.describe("alerts, frames & windows", () => {
       "Child Iframe",
     );
   });
+
+  test("alerts module - modal dialogs - user can open a small modal", async ({
+    page,
+  }) => {
+    await alertsPage.openModalsDialog();
+    await alertsPage.smallModal.click();
+
+    await expect(alertsPage.modalContent).toBeVisible();
+
+    await alertsPage.closeSmallModal.click();
+
+    await expect(alertsPage.modalContent).toBeHidden();
+  });
+
+  test("alerts module - modal dialogs - user cand open and close large modal", async ({
+    page,
+  }) => {
+    await alertsPage.openModalsDialog();
+    await alertsPage.largeModal.click();
+
+    await expect(alertsPage.modalContent).toBeVisible();
+
+    await alertsPage.closeLargeModal.click();
+
+    await expect(alertsPage.modalContent).toBeHidden();
+  });
 });
