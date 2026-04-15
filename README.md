@@ -33,6 +33,13 @@ In the Elements section, I covered:
 - Upload and Download functionality
 - Dynamic Properties (elements that change state over time)
 
+In the Alerts, Frames & Windows section, I covered:
+
+Browser Windows (new tab, new window, window message)
+Alerts (handling alert pop-ups: accept, dismiss, input)
+Frames and Nested Frames (working with iframe and nested iframe)
+Modal Dialogs (opening and closing modals)
+
 How to run the tests
 
 Install dependencies:
