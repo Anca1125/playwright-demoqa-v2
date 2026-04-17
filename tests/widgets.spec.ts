@@ -79,4 +79,30 @@ test.describe("widgets module", () => {
     await expect(widgetsPage.contentBody.nth(1)).toBeHidden();
     await expect(widgetsPage.contentBody.nth(2)).toBeHidden();
   });
+
+  test("widgets module - auto complete - user can fill input with multiple colors", async ({
+    page,
+  }) => {
+    await widgetsPage.openAutoComplete();
+    await widgetsPage.fillMultipleColorInput("Yellow");
+    await page.keyboard.press("Enter");
+    await widgetsPage.fillMultipleColorInput("Green");
+    await page.keyboard.press("Enter");
+    await widgetsPage.fillMultipleColorInput("Indigo");
+    await page.keyboard.press("Enter");
+
+    await expect(widgetsPage.inputFilledMultipleColors).toContainText("Yellow");
+    await expect(widgetsPage.inputFilledMultipleColors).toContainText("Green");
+    await expect(widgetsPage.inputFilledMultipleColors).toContainText("Indigo");
+  });
+
+  test("widgets module - auto complete - user can fill input with a single color", async ({
+    page,
+  }) => {
+    await widgetsPage.openAutoComplete();
+    await widgetsPage.fillSingleColorInput("Yellow");
+    await page.keyboard.press("Enter");
+
+    await expect(widgetsPage.inputFilledSingleColor).toContainText("Yellow");
+  });
 });
