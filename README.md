@@ -40,6 +40,21 @@ In the Alerts, Frames & Windows section, I covered:
 - Frames and Nested Frames (working with iframe and nested iframe)
 - Modal Dialogs (opening and closing modals)
 
+In the Practice Form Testing, I implemented an end-to-end test including:
+
+- Filling all required fields
+- Submitting the form
+- Validating the submitted data in the confirmation modal
+
+✔️ Positive Scenario
+
+- User successfully completes and submits the form
+- All entered data is correctly displayed
+
+❌ Negative Scenario
+
+- Invalid inputs (e.g. incorrect email, invalid mobile)
+
 How to run the tests
 
 Install dependencies:
