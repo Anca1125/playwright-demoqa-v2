@@ -105,4 +105,40 @@ test.describe("widgets module", () => {
 
     await expect(widgetsPage.inputFilledSingleColor).toContainText("Yellow");
   });
+
+  test("widgets modul - date picker - user can select day, month and year", async ({
+    page,
+  }) => {
+    await widgetsPage.openDatePicker();
+    await widgetsPage.selectDate("04/04/2026");
+
+    await expect(widgetsPage.dateInput).toHaveValue("04/04/2026");
+  });
+
+  test("widgets module - date picker - user can select a specific date and time ", async ({
+    page,
+  }) => {
+    await widgetsPage.openDatePicker();
+    await widgetsPage.selectDateAndTime();
+
+    await expect(widgetsPage.dateAndTimeInput).toBeVisible();
+  });
+
+  test("widgets module - date picker - user can select current day and time ", async ({
+    page,
+  }) => {
+    await widgetsPage.openDatePicker();
+    await widgetsPage.selectTodayAndTime();
+
+    await expect(widgetsPage.dateAndTimeInput).toBeVisible();
+  });
+
+  test("widgets module - slider - user can move slider and change the value", async ({
+    page,
+  }) => {
+    await widgetsPage.openSlider();
+    await widgetsPage.changeSlider(30);
+
+    await expect(widgetsPage.inputSlider).toHaveValue("30");
+  });
 });
