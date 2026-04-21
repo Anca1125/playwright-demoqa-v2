@@ -141,4 +141,45 @@ test.describe("widgets module", () => {
 
     await expect(widgetsPage.inputSlider).toHaveValue("30");
   });
+
+  test("widgets module - progress bar - user can start progress bar", async ({
+    page,
+  }) => {
+    await widgetsPage.openProgressBarPage();
+    await widgetsPage.startProgressBar();
+
+    await expect(widgetsPage.progressBar).toHaveText("100%", {
+      timeout: 15000,
+    });
+  });
+  test("widget module - progress bar - user can start and stop progress bar", async ({
+    page,
+  }) => {
+    await widgetsPage.openProgressBarPage();
+    await widgetsPage.startProgressBar();
+    await page.waitForTimeout(5000);
+    await widgetsPage.startProgressBar();
+
+    const valueText = await widgetsPage.progressBar.textContent();
+    const value = Number(valueText?.replace("%", ""));
+
+    expect(value).toBeGreaterThanOrEqual(45);
+    expect(value).toBeLessThanOrEqual(55);
+  });
+
+  test("widget module - progress bar - user can reset the progress bar", async ({
+    page,
+  }) => {
+    await widgetsPage.openProgressBarPage();
+    await widgetsPage.startProgressBar();
+
+    await expect(widgetsPage.progressBar).toHaveText("100%", {
+      timeout: 15000,
+    });
+    await expect(widgetsPage.resetButton).toBeVisible();
+
+    await widgetsPage.resetProgressBar();
+
+    await expect(widgetsPage.progressBar).toHaveText("0%");
+  });
 });

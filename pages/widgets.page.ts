@@ -25,6 +25,10 @@ export class WidgetsPage extends BasePage {
   readonly slider: Locator;
   readonly rangeSlider: Locator;
   readonly inputSlider: Locator;
+  readonly progressBarPage: Locator;
+  readonly progressBar: Locator;
+  readonly startStopButton: Locator;
+  readonly resetButton: Locator;
   constructor(page: Page) {
     super(page);
     this.widgets = page.getByText("Widgets", { exact: true });
@@ -64,6 +68,10 @@ export class WidgetsPage extends BasePage {
     this.slider = page.getByText("Slider");
     this.rangeSlider = page.locator("#slider");
     this.inputSlider = page.locator("#sliderValue");
+    this.progressBarPage = page.getByText("Progress Bar");
+    this.progressBar = page.locator("#progressBar");
+    this.startStopButton = page.locator("#startStopButton");
+    this.resetButton = page.locator("#resetButton");
   }
   timeOption(time: string) {
     return this.page.locator(".react-datepicker__time-list-item", {
@@ -128,5 +136,14 @@ export class WidgetsPage extends BasePage {
       }
       current = Number(await this.inputSlider.inputValue());
     }
+  }
+  async openProgressBarPage() {
+    await this.progressBarPage.click();
+  }
+  async startProgressBar() {
+    await this.startStopButton.click();
+  }
+  async resetProgressBar() {
+    await this.resetButton.click();
   }
 }
