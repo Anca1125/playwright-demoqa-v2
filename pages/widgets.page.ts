@@ -41,6 +41,11 @@ export class WidgetsPage extends BasePage {
   readonly hoverTheButton: Locator;
   readonly hoverTheField: Locator;
   readonly hoverTheLink: Locator;
+  readonly menu: Locator;
+  readonly mainItem2: Locator;
+  readonly subSubLIst: Locator;
+  readonly subSubItem1: Locator;
+
   constructor(page: Page) {
     super(page);
     this.widgets = page.getByText("Widgets", { exact: true });
@@ -96,6 +101,9 @@ export class WidgetsPage extends BasePage {
     this.hoverTheButton = page.locator("#toolTipButton");
     this.hoverTheField = page.locator("#toolTipTextField");
     this.hoverTheLink = page.getByRole("link", { name: "Contrary" });
+    this.menu = page.getByText("Menu", { exact: true });
+    this.mainItem2 = page.getByText("Main Item 2");
+    this.subSubLIst = page.getByText("SUB SUB LIST »");
   }
   timeOption(time: string) {
     return this.page.locator(".react-datepicker__time-list-item", {
@@ -193,5 +201,9 @@ export class WidgetsPage extends BasePage {
   }
   async hoverOverTheLink() {
     await this.hoverTheLink.hover();
+  }
+
+  async openMenu() {
+    await this.menu.click();
   }
 }

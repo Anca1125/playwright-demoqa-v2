@@ -253,4 +253,11 @@ test.describe("widgets module", () => {
 
     await expect(page.getByText("You hovered over the Contrary")).toBeVisible();
   });
+
+  test("widgets test - menu - user cand open submenu", async ({ page }) => {
+    await widgetsPage.openMenu();
+    await widgetsPage.mainItem2.hover();
+
+    await expect(page.getByText("SUB SUB LIST")).toBeVisible();
+  });
 });
