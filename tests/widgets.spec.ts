@@ -182,4 +182,46 @@ test.describe("widgets module", () => {
 
     await expect(widgetsPage.progressBar).toHaveText("0%");
   });
+
+  test("widgets module - tabs - user can open what tab", async ({ page }) => {
+    await widgetsPage.openTabPage();
+    await widgetsPage.openWhatTab();
+
+    await expect(widgetsPage.whatContent).toContainText(
+      "Lorem Ipsum is simply dummy text ",
+    );
+  });
+
+  test("widgets module - tabs - user can open origin tab", async ({ page }) => {
+    await widgetsPage.openTabPage();
+    await widgetsPage.openOriginTab();
+
+    await expect(widgetsPage.originContent).toContainText(
+      "Contrary to popular belief",
+    );
+  });
+
+  test("widgets module - tabs - user can open use tab", async ({ page }) => {
+    await widgetsPage.openTabPage();
+    await widgetsPage.openUseTab();
+
+    await expect(widgetsPage.useContent).toContainText(
+      "It is a long established fact that",
+    );
+  });
+
+  test("widgets module - tabs - user can switch tabs", async ({ page }) => {
+    await widgetsPage.openTabPage();
+    await widgetsPage.openWhatTab();
+
+    await expect(widgetsPage.whatContent).toContainText(
+      "Lorem Ipsum is simply dummy text ",
+    );
+
+    await widgetsPage.openOriginTab();
+
+    await expect(widgetsPage.originContent).toContainText(
+      "Contrary to popular belief",
+    );
+  });
 });

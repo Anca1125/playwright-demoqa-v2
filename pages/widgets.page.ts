@@ -29,6 +29,14 @@ export class WidgetsPage extends BasePage {
   readonly progressBar: Locator;
   readonly startStopButton: Locator;
   readonly resetButton: Locator;
+  readonly tab: Locator;
+  readonly whatTab: Locator;
+  readonly originTab: Locator;
+  readonly useTab: Locator;
+  readonly moreTab: Locator;
+  readonly whatContent: Locator;
+  readonly originContent: Locator;
+  readonly useContent: Locator;
   constructor(page: Page) {
     super(page);
     this.widgets = page.getByText("Widgets", { exact: true });
@@ -72,6 +80,14 @@ export class WidgetsPage extends BasePage {
     this.progressBar = page.locator("#progressBar");
     this.startStopButton = page.locator("#startStopButton");
     this.resetButton = page.locator("#resetButton");
+    this.tab = page.getByText("Tabs");
+    this.whatTab = page.locator("#demo-tab-what");
+    this.originTab = page.locator("#demo-tab-origin");
+    this.useTab = page.locator("#demo-tab-use");
+    this.moreTab = page.locator("#demo-tab-more");
+    this.whatContent = page.locator("#demo-tabpane-what");
+    this.originContent = page.locator("#demo-tabpane-origin");
+    this.useContent = page.locator("#demo-tabpane-use");
   }
   timeOption(time: string) {
     return this.page.locator(".react-datepicker__time-list-item", {
@@ -145,5 +161,17 @@ export class WidgetsPage extends BasePage {
   }
   async resetProgressBar() {
     await this.resetButton.click();
+  }
+  async openTabPage() {
+    await this.tab.click();
+  }
+  async openWhatTab() {
+    await this.whatTab.click();
+  }
+  async openOriginTab() {
+    await this.originTab.click();
+  }
+  async openUseTab() {
+    await this.useTab.click();
   }
 }
