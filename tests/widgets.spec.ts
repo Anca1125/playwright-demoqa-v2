@@ -254,10 +254,62 @@ test.describe("widgets module", () => {
     await expect(page.getByText("You hovered over the Contrary")).toBeVisible();
   });
 
-  test("widgets test - menu - user cand open submenu", async ({ page }) => {
+  test("widgets module - menu - user cand open submenu", async ({ page }) => {
     await widgetsPage.openMenu();
     await widgetsPage.mainItem2.hover();
 
     await expect(page.getByText("SUB SUB LIST")).toBeVisible();
+  });
+
+  test("widgets module - select menu - use can select a value", async ({
+    page,
+  }) => {
+    await widgetsPage.openSelectMenu();
+    await widgetsPage.selectAOption("A root option");
+
+    await expect(widgetsPage.selectOptions).toContainText("A root option");
+  });
+
+  test("widgets module - select menu - use can select a title", async ({
+    page,
+  }) => {
+    await widgetsPage.openSelectMenu();
+    await widgetsPage.selectAtitle("Prof.");
+
+    await expect(widgetsPage.selectTitle).toContainText("Prof.");
+  });
+
+  test("widgets module - select menu - user can select a color", async ({
+    page,
+  }) => {
+    await widgetsPage.openSelectMenu();
+    await widgetsPage.selectAColor("Magenta");
+
+    await expect(widgetsPage.selectOldMenu).toHaveValue("9");
+  });
+
+  test("widgets module - select menu - user can select multiple colors", async ({
+    page,
+  }) => {
+    await widgetsPage.openSelectMenu();
+    await widgetsPage.selectMultipleColors("Green", "Blue", "Black", "Red");
+
+    await expect(widgetsPage.multiSelectValues).toContainText("Green");
+    await expect(widgetsPage.multiSelectValues).toContainText("Blue");
+    await expect(widgetsPage.multiSelectValues).toContainText("Black");
+    await expect(widgetsPage.multiSelectValues).toContainText("Red");
+  });
+
+  test("widgets module - select menu - user can select multiple cars", async ({
+    page,
+  }) => {
+    await widgetsPage.openSelectMenu();
+    await widgetsPage.selectCars(["Volvo", "Opel", "Audi"]);
+
+    await expect(widgetsPage.selectStandard).toHaveValues([
+      "volvo",
+      "opel",
+      "audi",
+    ]);
   });
 });

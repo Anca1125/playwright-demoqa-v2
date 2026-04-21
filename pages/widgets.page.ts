@@ -44,8 +44,13 @@ export class WidgetsPage extends BasePage {
   readonly menu: Locator;
   readonly mainItem2: Locator;
   readonly subSubLIst: Locator;
-  readonly subSubItem1: Locator;
-
+  readonly selectMenu: Locator;
+  readonly selectOptions: Locator;
+  readonly selectTitle: Locator;
+  readonly selectOldMenu: Locator;
+  readonly multiSelectDropDown: Locator;
+  readonly selectStandard: Locator;
+  readonly multiSelectValues: Locator;
   constructor(page: Page) {
     super(page);
     this.widgets = page.getByText("Widgets", { exact: true });
@@ -104,6 +109,13 @@ export class WidgetsPage extends BasePage {
     this.menu = page.getByText("Menu", { exact: true });
     this.mainItem2 = page.getByText("Main Item 2");
     this.subSubLIst = page.getByText("SUB SUB LIST »");
+    this.selectMenu = page.getByText("Select Menu", { exact: true });
+    this.selectOptions = page.locator("#withOptGroup");
+    this.selectTitle = page.locator("#selectOne");
+    this.selectOldMenu = page.locator("#oldSelectMenu");
+    this.multiSelectDropDown = page.locator("#react-select-4-input");
+    this.selectStandard = page.locator("#cars");
+    this.multiSelectValues = page.locator("#selectMenuContainer");
   }
   timeOption(time: string) {
     return this.page.locator(".react-datepicker__time-list-item", {
@@ -202,8 +214,42 @@ export class WidgetsPage extends BasePage {
   async hoverOverTheLink() {
     await this.hoverTheLink.hover();
   }
-
   async openMenu() {
     await this.menu.click();
+  }
+  async openSelectMenu() {
+    await this.selectMenu.click();
+  }
+  async selectAOption(value: string) {
+    await this.selectOptions.click();
+    await this.page.keyboard.type(value);
+    await this.page.keyboard.press("Enter");
+  }
+  async selectAtitle(value: string) {
+    await this.selectTitle.click();
+    await this.page.keyboard.type(value);
+    await this.page.keyboard.press("Enter");
+  }
+  async selectAColor(value: string) {
+    await this.selectOldMenu.selectOption(value);
+  }
+  async selectMultipleColors(
+    value1: string,
+    value2: string,
+    value3: string,
+    value4: string,
+  ) {
+    await this.multiSelectDropDown.click();
+    await this.page.keyboard.type(value1);
+    await this.page.keyboard.press("Enter");
+    await this.page.keyboard.type(value2);
+    await this.page.keyboard.press("Enter");
+    await this.page.keyboard.type(value3);
+    await this.page.keyboard.press("Enter");
+    await this.page.keyboard.type(value4);
+    await this.page.keyboard.press("Enter");
+  }
+  async selectCars(values: string[]) {
+    await this.selectStandard.selectOption(values);
   }
 }
