@@ -13,6 +13,7 @@ export class WidgetsPage extends BasePage {
   readonly inputSingleColor: Locator;
   readonly inputFilledMultipleColors: Locator;
   readonly inputFilledSingleColor: Locator;
+  readonly selectedColors: Locator;
   readonly datePicker: Locator;
   readonly dateInput: Locator;
   readonly dateAndTimeInput: Locator;
@@ -72,6 +73,7 @@ export class WidgetsPage extends BasePage {
     this.inputFilledSingleColor = page
       .locator(".auto-complete__control")
       .nth(1);
+    this.selectedColors = page.locator(".auto-complete__multi-value__label");
     this.datePicker = page.getByText("Date Picker");
     this.dateInput = page.locator("#datePickerMonthYearInput");
     this.dateAndTimeInput = page.locator("#dateAndTimePickerInput");

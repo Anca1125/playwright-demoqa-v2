@@ -85,15 +85,20 @@ test.describe("widgets module", () => {
   }) => {
     await widgetsPage.openAutoComplete();
     await widgetsPage.fillMultipleColorInput("Yellow");
+    await page.waitForTimeout(500);
     await page.keyboard.press("Enter");
     await widgetsPage.fillMultipleColorInput("Green");
+    await page.waitForTimeout(500);
     await page.keyboard.press("Enter");
     await widgetsPage.fillMultipleColorInput("Indigo");
+    await page.waitForTimeout(500);
     await page.keyboard.press("Enter");
 
-    await expect(widgetsPage.inputFilledMultipleColors).toContainText("Yellow");
-    await expect(widgetsPage.inputFilledMultipleColors).toContainText("Green");
-    await expect(widgetsPage.inputFilledMultipleColors).toContainText("Indigo");
+    await expect(widgetsPage.selectedColors).toHaveText([
+      "Yellow",
+      "Green",
+      "Indigo",
+    ]);
   });
 
   test("widgets module - auto complete - user can fill input with a single color", async ({
