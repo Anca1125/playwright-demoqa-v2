@@ -55,6 +55,18 @@ In the Practice Form Testing, I implemented an end-to-end test including:
 
 - Invalid inputs (e.g. incorrect email, invalid mobile)
 
+In Widgets module I covered:
+
+- Accordion behavior (expand / collapse sections)
+- Auto Complete (single and multiple color selection)
+- Date Picker (manual date + current date + date & time)
+- Slider value updates
+- Progress Bar (start / stop / reset)
+- Tabs navigation
+- Tool Tips (hover validation)
+- Menu and submenu hover actions
+- Select Menu
+
 How to run the tests
 
 Install dependencies:
