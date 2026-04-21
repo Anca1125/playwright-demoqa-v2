@@ -37,6 +37,10 @@ export class WidgetsPage extends BasePage {
   readonly whatContent: Locator;
   readonly originContent: Locator;
   readonly useContent: Locator;
+  readonly toolTips: Locator;
+  readonly hoverTheButton: Locator;
+  readonly hoverTheField: Locator;
+  readonly hoverTheLink: Locator;
   constructor(page: Page) {
     super(page);
     this.widgets = page.getByText("Widgets", { exact: true });
@@ -88,6 +92,10 @@ export class WidgetsPage extends BasePage {
     this.whatContent = page.locator("#demo-tabpane-what");
     this.originContent = page.locator("#demo-tabpane-origin");
     this.useContent = page.locator("#demo-tabpane-use");
+    this.toolTips = page.getByText("Tool Tips");
+    this.hoverTheButton = page.locator("#toolTipButton");
+    this.hoverTheField = page.locator("#toolTipTextField");
+    this.hoverTheLink = page.getByRole("link", { name: "Contrary" });
   }
   timeOption(time: string) {
     return this.page.locator(".react-datepicker__time-list-item", {
@@ -173,5 +181,17 @@ export class WidgetsPage extends BasePage {
   }
   async openUseTab() {
     await this.useTab.click();
+  }
+  async openToolTips() {
+    await this.toolTips.click();
+  }
+  async hoverOverTheButton() {
+    await this.hoverTheButton.hover();
+  }
+  async hoverOverTheTextField() {
+    await this.hoverTheField.hover();
+  }
+  async hoverOverTheLink() {
+    await this.hoverTheLink.hover();
   }
 }

@@ -224,4 +224,33 @@ test.describe("widgets module", () => {
       "Contrary to popular belief",
     );
   });
+
+  test("widgets module - tool tips - user can hover over the button", async ({
+    page,
+  }) => {
+    await widgetsPage.openToolTips();
+    await widgetsPage.hoverOverTheButton();
+
+    await expect(page.getByText("You hovered over the button")).toBeVisible();
+  });
+
+  test("widgets module - tool tips - user can hover over the textField", async ({
+    page,
+  }) => {
+    await widgetsPage.openToolTips();
+    await widgetsPage.hoverOverTheTextField();
+
+    await expect(
+      page.getByText("You hovered over the text field"),
+    ).toBeVisible();
+  });
+
+  test("widgets module - tool tips - user can hover over the Link", async ({
+    page,
+  }) => {
+    await widgetsPage.openToolTips();
+    await widgetsPage.hoverOverTheLink();
+
+    await expect(page.getByText("You hovered over the Contrary")).toBeVisible();
+  });
 });
