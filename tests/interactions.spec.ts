@@ -69,4 +69,65 @@ test.describe("interactions", () => {
       expect(items[0]).not.toBe("One");
     }
   });
+
+  test("interactions module - selectable - user can select an item in list", async ({
+    page,
+  }) => {
+    await interactionsPage.openSelectable();
+    await interactionsPage.firstItemInList.click();
+
+    await expect(interactionsPage.firstItemInList).toHaveClass(/active/);
+  });
+
+  test("interactions module - selectable - user can select multiple items in list", async ({
+    page,
+  }) => {
+    await interactionsPage.openSelectable();
+    await interactionsPage.firstItemInList.click();
+    await interactionsPage.secondItemInList.click();
+    await interactionsPage.thirdItemInList.click();
+
+    await expect(interactionsPage.firstItemInList).toHaveClass(/active/);
+    await expect(interactionsPage.secondItemInList).toHaveClass(/active/);
+    await expect(interactionsPage.thirdItemInList).toHaveClass(/active/);
+  });
+
+  test("interactions module - selectable - user can switch to grid and select multiple items", async ({
+    page,
+  }) => {
+    await interactionsPage.openSelectable();
+    await interactionsPage.selectGrid();
+
+    await expect(interactionsPage.grid).toHaveClass(/active/);
+    await expect(interactionsPage.gridContainer).toBeVisible();
+
+    await interactionsPage.firstItemInGrid.click();
+    await interactionsPage.secondItemInGrid.click();
+    await interactionsPage.thirdItemInGrid.click();
+
+    await expect(interactionsPage.firstItemInGrid).toHaveClass(/active/);
+    await expect(interactionsPage.secondItemInGrid).toHaveClass(/active/);
+    await expect(interactionsPage.thirdItemInGrid).toHaveClass(/active/);
+  });
+
+  test("interactions module - selectable - user can deselect selected items in list", async ({
+    page,
+  }) => {
+    await interactionsPage.openSelectable();
+    await interactionsPage.firstItemInList.click();
+    await interactionsPage.secondItemInList.click();
+    await interactionsPage.thirdItemInList.click();
+
+    await expect(interactionsPage.firstItemInList).toHaveClass(/active/);
+    await expect(interactionsPage.secondItemInList).toHaveClass(/active/);
+    await expect(interactionsPage.thirdItemInList).toHaveClass(/active/);
+
+    await interactionsPage.firstItemInList.click();
+    await interactionsPage.secondItemInList.click();
+    await interactionsPage.thirdItemInList.click();
+
+    await expect(interactionsPage.firstItemInList).not.toHaveClass(/active/);
+    await expect(interactionsPage.secondItemInList).not.toHaveClass(/active/);
+    await expect(interactionsPage.thirdItemInList).not.toHaveClass(/active/);
+  });
 });
