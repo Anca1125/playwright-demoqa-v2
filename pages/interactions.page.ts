@@ -20,6 +20,23 @@ export class InteractionsPage extends BasePage {
   readonly resizable: Locator;
   readonly resizableBox: Locator;
   readonly resizeHandle: Locator;
+  readonly droppable: Locator;
+  readonly simpleTab: Locator;
+  readonly dragMe: Locator;
+  readonly dropHere: Locator;
+  readonly acceptTab: Locator;
+  readonly acceptable: Locator;
+  readonly notAcceptable: Locator;
+  readonly acceptDropHere: Locator;
+  readonly preventPropogationTab: Locator;
+  readonly pPDragMe: Locator;
+  readonly innerDroppable: Locator;
+  readonly outerDroppable: Locator;
+  readonly revertDraggable: Locator;
+  readonly willRevert: Locator;
+  readonly notReveret: Locator;
+  readonly revertDropHere: Locator;
+
   constructor(page: Page) {
     super(page);
     this.interctionsModule = page.getByText("Interactions");
@@ -42,6 +59,24 @@ export class InteractionsPage extends BasePage {
     this.resizeHandle = page.locator(
       "#resizableBoxWithRestriction .react-resizable-handle",
     );
+    this.droppable = page.getByText("Droppable");
+    this.simpleTab = page.locator("#droppableExample-tab-simple");
+    this.dragMe = page.locator("#draggable").first();
+    this.dropHere = page.locator("#droppable").first();
+    this.acceptTab = page.locator("#droppableExample-tab-accept");
+    this.acceptable = page.locator("#acceptable");
+    this.notAcceptable = page.locator(".drag-box");
+    this.acceptDropHere = page.locator("#droppable").nth(1);
+    this.preventPropogationTab = page.locator(
+      "#droppableExample-tab-preventPropogation",
+    );
+    this.pPDragMe = page.locator("#dragBox");
+    this.innerDroppable = page.locator("#notGreedyInnerDropBox");
+    this.outerDroppable = page.locator("#notGreedyDropBox");
+    this.revertDraggable = page.locator("#droppableExample-tab-revertable");
+    this.willRevert = page.locator("#revertable");
+    this.notReveret = page.locator("#notRevertable");
+    this.revertDropHere = page.locator("#droppable");
   }
   async openInteractions() {
     await this.interctionsModule.click();
@@ -60,5 +95,8 @@ export class InteractionsPage extends BasePage {
   }
   async openResizable() {
     await this.resizable.click();
+  }
+  async openDroppable() {
+    await this.droppable.click();
   }
 }

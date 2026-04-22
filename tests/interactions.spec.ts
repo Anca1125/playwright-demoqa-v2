@@ -157,4 +157,34 @@ test.describe("interactions", () => {
     expect(after?.width).toBeGreaterThan(before?.width!);
     expect(after?.height).toBeGreaterThan(before?.height!);
   });
+
+  test("interactions module - droppable - user can drop a item in simple tab", async ({
+    page,
+  }) => {
+    await interactionsPage.openDroppable();
+
+    await interactionsPage.dragMe.scrollIntoViewIfNeeded();
+
+    const source = await interactionsPage.dragMe.boundingBox();
+    const target = await interactionsPage.dropHere.boundingBox();
+
+    if (source && target) {
+      await page.mouse.move(
+        source.x + source.width / 2,
+        source.y + source.height / 2,
+      );
+
+      await page.mouse.down();
+
+      await page.mouse.move(
+        target.x + target.width / 2,
+        target.y + target.height / 2,
+        { steps: 25 },
+      );
+      await page.waitForTimeout(300);
+      await page.mouse.up();
+    }
+
+    await expect(interactionsPage.dropHere).toContainText("Dropped!");
+  });
 });
