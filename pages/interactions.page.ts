@@ -36,6 +36,10 @@ export class InteractionsPage extends BasePage {
   readonly willRevert: Locator;
   readonly notReveret: Locator;
   readonly revertDropHere: Locator;
+  readonly dragabble: Locator;
+  readonly simpleTabDragabble: Locator;
+  readonly dragBox: Locator;
+  readonly draggableContainer: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -77,6 +81,10 @@ export class InteractionsPage extends BasePage {
     this.willRevert = page.locator("#revertable");
     this.notReveret = page.locator("#notRevertable");
     this.revertDropHere = page.locator("#droppable");
+    this.dragabble = page.getByText("Dragabble");
+    this.simpleTabDragabble = page.locator("#draggableExample-tab-simple");
+    this.dragBox = page.locator("#dragBox");
+    this.draggableContainer = page.locator("#dragBoxContainer");
   }
   async openInteractions() {
     await this.interctionsModule.click();
@@ -98,5 +106,8 @@ export class InteractionsPage extends BasePage {
   }
   async openDroppable() {
     await this.droppable.click();
+  }
+  async openDragabble() {
+    await this.dragabble.click();
   }
 }

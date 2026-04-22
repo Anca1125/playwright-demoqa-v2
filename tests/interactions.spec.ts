@@ -187,4 +187,22 @@ test.describe("interactions", () => {
 
     await expect(interactionsPage.dropHere).toContainText("Dropped!");
   });
+
+  test("interactions module - dragabble - user can drag a simple box", async ({
+    page,
+  }) => {
+    await interactionsPage.openDragabble();
+    await interactionsPage.simpleTabDragabble.click();
+
+    await interactionsPage.dragBox.scrollIntoViewIfNeeded();
+
+    const before = await interactionsPage.dragBox.boundingBox();
+    if (before) {
+      await interactionsPage.dragBox.dragTo(page.locator("body"));
+      const after = await interactionsPage.dragBox.boundingBox();
+
+      expect(after?.x).not.toBe(before.x);
+      expect(after?.y).not.toBe(before.y);
+    }
+  });
 });
