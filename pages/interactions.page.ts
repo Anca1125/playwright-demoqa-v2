@@ -17,6 +17,9 @@ export class InteractionsPage extends BasePage {
   readonly secondItemInGrid: Locator;
   readonly thirdItemInGrid: Locator;
   readonly selectable: Locator;
+  readonly resizable: Locator;
+  readonly resizableBox: Locator;
+  readonly resizeHandle: Locator;
   constructor(page: Page) {
     super(page);
     this.interctionsModule = page.getByText("Interactions");
@@ -34,6 +37,11 @@ export class InteractionsPage extends BasePage {
     this.secondItemInGrid = this.gridItems.nth(1);
     this.thirdItemInGrid = this.gridItems.nth(2);
     this.selectable = page.getByText("Selectable");
+    this.resizable = page.getByText("Resizable");
+    this.resizableBox = page.locator("#resizableBoxWithRestriction");
+    this.resizeHandle = page.locator(
+      "#resizableBoxWithRestriction .react-resizable-handle",
+    );
   }
   async openInteractions() {
     await this.interctionsModule.click();
@@ -49,5 +57,8 @@ export class InteractionsPage extends BasePage {
   }
   async openSelectable() {
     await this.selectable.click();
+  }
+  async openResizable() {
+    await this.resizable.click();
   }
 }

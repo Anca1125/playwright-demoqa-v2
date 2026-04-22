@@ -130,4 +130,31 @@ test.describe("interactions", () => {
     await expect(interactionsPage.secondItemInList).not.toHaveClass(/active/);
     await expect(interactionsPage.thirdItemInList).not.toHaveClass(/active/);
   });
+
+  test("interactions module - resizable - user can resize the box", async ({
+    page,
+  }) => {
+    await interactionsPage.openResizable();
+
+    const before = await interactionsPage.resizableBox.boundingBox();
+    const handle = await interactionsPage.resizeHandle.boundingBox();
+
+    if (before && handle) {
+      await page.mouse.move(
+        handle.x + handle.width - 2,
+        handle.y + handle.height - 2,
+      );
+
+      await page.mouse.down();
+
+      await page.mouse.move(handle.x + 100, handle.y + 100, { steps: 20 });
+
+      await page.mouse.up();
+    }
+
+    const after = await interactionsPage.resizableBox.boundingBox();
+
+    expect(after?.width).toBeGreaterThan(before?.width!);
+    expect(after?.height).toBeGreaterThan(before?.height!);
+  });
 });
