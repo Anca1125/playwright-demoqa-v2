@@ -67,6 +67,14 @@ In Widgets module I covered:
 - Menu and submenu hover actions
 - Select Menu
 
+In Interactions module I covered:
+
+- Sortable (switch between List / Grid and reorder items)
+- Selectable (single, multiple and deselect actions in List / Grid)
+- Resizable (resize box and validate updated dimensions)
+
+Note: Additional drag-and-drop scenarios were explored, but only stable tests were kept in the active suite.
+
 How to run the tests
 
 Install dependencies:
