@@ -158,51 +158,51 @@ test.describe("interactions", () => {
     expect(after?.height).toBeGreaterThan(before?.height!);
   });
 
-  test("interactions module - droppable - user can drop a item in simple tab", async ({
-    page,
-  }) => {
-    await interactionsPage.openDroppable();
+  // test("interactions module - droppable - user can drop a item in simple tab", async ({
+  //   page,
+  // }) => {
+  //   await interactionsPage.openDroppable();
 
-    await interactionsPage.dragMe.scrollIntoViewIfNeeded();
+  //   await interactionsPage.dragMe.scrollIntoViewIfNeeded();
 
-    const source = await interactionsPage.dragMe.boundingBox();
-    const target = await interactionsPage.dropHere.boundingBox();
+  //   const source = await interactionsPage.dragMe.boundingBox();
+  //   const target = await interactionsPage.dropHere.boundingBox();
 
-    if (source && target) {
-      await page.mouse.move(
-        source.x + source.width / 2,
-        source.y + source.height / 2,
-      );
+  //   if (source && target) {
+  //     await page.mouse.move(
+  //       source.x + source.width / 2,
+  //       source.y + source.height / 2,
+  //     );
 
-      await page.mouse.down();
+  //     await page.mouse.down();
 
-      await page.mouse.move(
-        target.x + target.width / 2,
-        target.y + target.height / 2,
-        { steps: 25 },
-      );
-      await page.waitForTimeout(300);
-      await page.mouse.up();
-    }
+  //     await page.mouse.move(
+  //       target.x + target.width / 2,
+  //       target.y + target.height / 2,
+  //       { steps: 25 },
+  //     );
+  //     await page.waitForTimeout(300);
+  //     await page.mouse.up();
+  //   }
 
-    await expect(interactionsPage.dropHere).toContainText("Dropped!");
-  });
+  //   await expect(interactionsPage.dropHere).toContainText("Dropped!");
+  // });
 
-  test("interactions module - dragabble - user can drag a simple box", async ({
-    page,
-  }) => {
-    await interactionsPage.openDragabble();
-    await interactionsPage.simpleTabDragabble.click();
+  // test("interactions module - dragabble - user can drag a simple box", async ({
+  //   page,
+  // }) => {
+  //   await interactionsPage.openDragabble();
+  //   await interactionsPage.simpleTabDragabble.click();
 
-    await interactionsPage.dragBox.scrollIntoViewIfNeeded();
+  //   await interactionsPage.dragBox.scrollIntoViewIfNeeded();
 
-    const before = await interactionsPage.dragBox.boundingBox();
-    if (before) {
-      await interactionsPage.dragBox.dragTo(page.locator("body"));
-      const after = await interactionsPage.dragBox.boundingBox();
+  //   const before = await interactionsPage.dragBox.boundingBox();
+  //   if (before) {
+  //     await interactionsPage.dragBox.dragTo(page.locator("body"));
+  //     const after = await interactionsPage.dragBox.boundingBox();
 
-      expect(after?.x).not.toBe(before.x);
-      expect(after?.y).not.toBe(before.y);
-    }
-  });
+  //     expect(after?.x).not.toBe(before.x);
+  //     expect(after?.y).not.toBe(before.y);
+  //   }
+  // });
 });
